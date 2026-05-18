@@ -8,7 +8,7 @@ int head = 0, tail = 0, count = 0;
 void push(int val) 
 {
     buff[tail] = val;
-    tail++; 
+    tail = (tail++) % Size; 
     count++; 
     cout << "int added: " << val << endl; 
 }
@@ -17,7 +17,7 @@ int pop()
 {
     int temp = buff[head];
     buff[head] = 0;
-    head++;
+    head = (head++) % Size;
     count--;
     cout << "Int remmoved: " << temp << endl;
     return temp;
@@ -25,39 +25,13 @@ int pop()
 
 bool isFull()
 {
-    bool flag = false;
-    for(int i = 0 ; i <= Size; i++)
-    {
-        if (buff[i] != 0)
-        {
-            cout << "Is not full" << endl;
-            flag = false; 
-        }
-        else
-        {
-            cout << "Is full" << endl;
-            flag = true;
-        }
-    }
-    return flag ; 
+    
+    return count == Size ; 
 }
 bool isEmpty()
 {
-    bool flag = false;
-    for(int i = 0 ; i <= Size; i++)
-        {
-            if (buff[i] == 0)
-            {
-                cout << "Is empty " << endl;
-                flag  = true;
-            }
-            else
-            {
-                cout << "Is full" << endl;
-                flag = false;
-            }
-        }
-        return flag;
+    
+        return count == 0;
 }
 
 int main()
@@ -79,7 +53,14 @@ int main()
     push(23); 
     push(21);
     push(22);
+    push(2); 
+    push(23); 
+    push(34);
+    push(21);
+    push(43);
+    push(34); 
+    push(54); 
     pop();
-
+    cout << "Count: " << count << " Head: " << head << " Tail: " << tail << endl;
     return 0;
 }
